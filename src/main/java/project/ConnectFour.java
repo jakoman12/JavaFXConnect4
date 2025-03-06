@@ -28,6 +28,7 @@ public class ConnectFour extends Application {
     private Circle[][] circleBoard = new Circle[ROWS][COLUMNS]; //UI board for circles
     private int[][] gameBoard = new int[ROWS][COLUMNS]; //game board for logic
     private int currentPlayer = 1; //1 for Red; 2 for Yellow
+    private Color pieceColor = Color.RED;
     private Pane buttonsPane;
     private Label turnStatus; 
     private GridPane grid;
@@ -58,7 +59,7 @@ public class ConnectFour extends Application {
             for(int col=0; col<COLUMNS; col++){
                 Circle circle = new Circle(35, Color.LIGHTGRAY);
                 circleBoard[row][col] = circle;
-                grid.add(circle, row, col);
+                grid.add(circle, col, row);
             }
         }
         borderPane.setCenter(grid);
@@ -87,8 +88,26 @@ public class ConnectFour extends Application {
         return button;
     }
 
+    //TODO: Implement drop animation
     private void dropPiece(Button button){
-        
+        int col = (int) button.getUserData();
+        for(int r = COLUMNS-1; r >= 0; r--){
+            if (gameBoard[r][col] == 0){
+                gameBoard[r][col] = currentPlayer;
+                circleBoard[r][col].setFill(pieceColor);
+                break;
+            }
+        }
+        //if col is full disable it
+        if(gameBoard[0][col]!= 0){
+            button.setDisable(true);
+        }
+
+        //TODO: check the win condition
+
+        //change the player
+        currentPlayer = (currentPlayer == 1) ? 2:1;
+        pieceColor = (currentPlayer == 1) ? Color.RED : Color.YELLOW;
     }
 
     public static void main(String[] args) {
