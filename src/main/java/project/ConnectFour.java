@@ -67,16 +67,15 @@ public class ConnectFour extends Application {
         borderPane.setCenter(grid);
         BorderPane.setAlignment(grid, Pos.CENTER);
 
-        //BOTTOM: turn status
+        //BOTTOM: turn status and replay
         turnStatus = new Label("It is Player One's turn");
         turnStatus.setFont(new Font(24));
-        
         playAgainButton = new Button("Play Again?");
         playAgainButton.setOnAction(e -> resetGame());
         playAgainButton.setVisible(false);
         VBox bottomBox = new VBox(turnStatus, playAgainButton);
-        bottomBox.setAlignment(Pos.CENTER);
         
+        bottomBox.setAlignment(Pos.CENTER);
         borderPane.setBottom(bottomBox);
         BorderPane.setAlignment(bottomBox, Pos.CENTER);
         
